@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include your chosen Bootswatch theme CSS from the CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/4.5.2/{{ your_theme_name }}/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <title>Your Resume</title>
+    <style>
+        body.night-mode {
+            background-color: #000000;
+            color: #fff;
+        }
+        #night-mode-toggle {
+            background-color: #000000;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .social-links a {
+            margin-right: 10px;
+            font-size: 24px;
+        }
+        .objective {
+            margin: 20px 0;
+        }
+        .skills ul, .education ul, .languages ul, .achievements ul, .contact ul {
+            list-style: none;
+            padding: 0;
+        }
+        .skills ul li, .education ul li, .languages ul li, .achievements ul li, .contact ul li {
+            margin-bottom: 10px;
+        }
+        .experience ul {
+            list-style: none;
+            padding: 0;
+        }
+        .experience ul li {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container ">
+        <div class=" text-center">
+            <!-- Include this in your HTML template -->
+        <button id="night-mode-toggle">Toggle Night Mode</button>
+
+        </div>
+
+        <div class="row">
+            
+            <div class="col-md-4">
+                <!-- Personal Information Section -->
+                <div class="text-center">
+                    <h1>{{ personal_info.first_name }} {{ personal_info.last_name }}</h1>
+                    <p>{{ personal_info.job_title }}</p>
+                    <p>{{ personal_info.email }}</p>
+                    <p>{{ personal_info.phone }}</p>
+                    <p>{{ personal_info.address }}</p>
+                    <div class="social-links">
+                        {% if personal_info.linkedin %}
+                            <a href="{{ personal_info.linkedin }}" class="text-primary"><i class="fab fa-linkedin"></i></a>
+                        {% endif %}
+                        {% if personal_info.github %}
+                            <a href="{{ personal_info.github }}" class="text-dark"><i class="fab fa-github"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Objective Section -->
+                
+                {% if personal_info.objective %}
+                    <div class="objective">
+                        {% comment %} <h2>Objective</h2> {% endcomment %}
+                        <p>{{ personal_info.objective | safe }}</p>
+                    </div>
+                {% endif %}
+
+                <!-- Skills Section -->
+                <hr>
+                <div class="skills">
+                    <h2>Skills</h2>
+                    <ul>
+                        {% for skill in skills %}
+
+                            <li > <span class="badge badge-primary" >{{ skill.name }} - {{ skill.proficiency }}</span></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <!-- Languages Section -->
+                <hr>
+                <div class="languages">
+                    <h2>Languages</h2>
+                    <ul>
+                        {% for language in languages %}
+                            <li>{{ language.name }} - {{ language.proficiency }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <!-- Contact Section -->
+                <hr>
+                <div class="contact">
+                    <h2>Contact</h2>
+                    <ul>
+                        <li>Email: {{ personal_info.email }}</li>
+                        <li>Phone: {{ personal_info.phone }}</li>
+                        <li>Address: {{ personal_info.address }}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <!-- Education Section -->
+                <hr>
+                <div class="education">
+                    <h2>Education</h2>
+                    <ul>
+                        {% for education in education %}
+                            <li>
+                                <h4>{{ education.institution_name }}</h4>
+                                <p class="text-muted">{{ education.degree }} in {{ education.major }}</p>
+                                <p>{{ education.start_date }} - {{ education.end_date }}</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <!-- Work Experience Section -->
+                <hr>
+                <div class="experience">
+                    <h2>Work Experience</h2>
+                    <ul>
+                        {% for experience in work_experience %}
+                            <li>
+                                <h4>{{ experience.company_name }}</h4>
+                                <p class="text-muted">{{ experience.job_title }}</p>
+                                <p>{{ experience.start_date }} - {{ experience.end_date }}</p>
+                                <p>{{ experience.description | safe }}</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <!-- Projects Section -->
+                <hr>
+                <div class="projects">
+                    <h2>Projects</h2>
+                    <ul>
+                        {% for project in projects %}
+                            <li>
+                                <h4 class="text-primary" >{{ project.title }}</h4>
+                                <p>{{ project.description | safe }}</p>
+                                <p>{{ project.start_date }} - {{ project.end_date }}</p>
+                                <p><a class="text-success" target="_blank" href="{{ project.link }}">Link</a></p>
+                                <hr>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="courses">
+                    <h2>Courses</h2>
+                    <ul>
+                        {% for course in courses %}
+                            <li>
+                                <h4 class="text-primary">{{ course.title }} ({{ course.course_code }})</h4>
+                                <p>{{ course.description | safe }}</p>
+                                <p>{{ course.start_date }} - {{ course.end_date }}</p>
+                                <p><a class="text-success" target="_blank" href="{{ course.link }}">Link</a></p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+                <!-- Achievements Section -->
+                <hr>
+                <div class="achievements">
+                    <h2>Achievements</h2>
+                    <ul>
+                        {% for achievement in achievements %}
+                            <li>
+                                <h5>{{ achievement.title }}</h5>
+                                <p>{{ achievement.date |safe}}</p>
+                                <a class="text-success">{{achievement.description |safe}}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    const nightModeToggle = document.getElementById('night-mode-toggle');
+const body = document.body;
+
+nightModeToggle.addEventListener('click', () => {
+    body.classList.toggle('night-mode');
+});
+</script>
+</body>
+
+</html>
