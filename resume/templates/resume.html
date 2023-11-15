@@ -127,9 +127,9 @@
                     <ul>
                         {% for course in courses %}
                             <li>
-                                <h4 class="text-primary">{{ course.title }} ({{ course.course_code }})</h4>
-                                <p>{{ course.description | safe }}</p>
-                                <p>{{ course.start_date }} - {{ course.end_date }}</p>
+                                <h5 class="text-dark">{{ course.title }} ({{ course.course_code }})</h5>
+                                {% comment %} <p>{{ course.description | safe }}</p> {% endcomment %}
+                                <p class="text-secondary">{{ course.start_date }} - {{ course.end_date }}</p>
                                 <p><a class="text-success" target="_blank" href="{{ course.link }}">Link</a></p>
                             </li>
                         {% endfor %}
@@ -158,7 +158,7 @@
                             <li>
                                 <h4>{{ education.institution_name }}</h4>
                                 <p class="text-muted">{{ education.degree }} in {{ education.major }}</p>
-                                <p>{{ education.start_date }} - {{ education.end_date }}</p>
+                                <p >{{ education.start_date }} - {{ education.end_date }}</p>
                             </li>
                         {% endfor %}
                     </ul>
@@ -189,7 +189,7 @@
                             <li>
                                 <h4 class="text-primary" >{{ project.title }}</h4>
                                 <p>{{ project.description | safe }}</p>
-                                <p>{{ project.start_date }} - {{ project.end_date }}</p>
+                                <p class="text-secondary" >{{ project.start_date }} - {{ project.end_date }}</p>
                                 <p><a class="text-success" target="_blank" href="{{ project.link }}">Link</a></p>
                                 <hr>
                             </li>
@@ -207,7 +207,7 @@
                         {% for achievement in achievements %}
                             <li>
                                 <h5>{{ achievement.title }}</h5>
-                                <p>{{ achievement.date |safe}}</p>
+                                <p class="text-secondary" >{{ achievement.date |safe}}</p>
                                 <a class="text-success">{{achievement.description |safe}}</a>
                             </li>
                         {% endfor %}
