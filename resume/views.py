@@ -3,7 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 
 
-from .models import PersonalInformation, Education, Skill, WorkExperience, Project, Certification, Language, Achievement
+from .models import PersonalInformation, Education, Skill, WorkExperience, Project, Certification, Language, Achievement,Course
 
 def resume(request):
     personal_info = PersonalInformation.objects.first()
@@ -14,6 +14,7 @@ def resume(request):
     certifications = Certification.objects.all()  # Add certifications data
     languages = Language.objects.all()  # Add languages data
     achievements = Achievement.objects.all()  # Add achievements data
+    courses = Course.objects.all() # Add courses data
 
     context = {
         'personal_info': personal_info,
@@ -24,6 +25,8 @@ def resume(request):
         'certifications': certifications,
         'languages': languages,
         'achievements': achievements,
+        'courses' : courses,
+        
     }
 
     return render(request, 'resume.html', context)

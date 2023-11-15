@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib import admin
-from .models import PersonalInformation, Education, Skill,SkillDetails, Course, WorkExperience, Project, Certification, Language, Achievement
+from .models import PersonalInformation, Education, Skill,SkillDetails, Course, WorkExperience, Project, Certification, Language, Achievement, ProfilePicture
 from django import forms
 
 # Register your models here.
@@ -29,9 +29,9 @@ class WorkExperienceAdmin(admin.ModelAdmin):
 class ProjectAdmin(admin.ModelAdmin):
     pass  # This will use the default form for Project
 
-# @admin.register(Course)
-# class Course(admin.ModelAdmin):
-#     pass
+@admin.register(Course)
+class Course(admin.ModelAdmin):
+    pass
 
 @admin.register(Certification)
 class CertificationAdmin(admin.ModelAdmin):
@@ -45,3 +45,9 @@ class LanguageAdmin(admin.ModelAdmin):
 class AchievementAdmin(admin.ModelAdmin):
     pass  # This will use the default form for Achievement
 
+
+@admin.register(ProfilePicture)
+class MyModelAdmin(admin.ModelAdmin):
+    # If you created a custom form, use it here:
+    # form = MyModelForm
+    pass

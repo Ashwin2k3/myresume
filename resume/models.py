@@ -69,6 +69,6 @@ class Achievement(models.Model):
 class SkillDetails(models.Model):
     title = models.CharField(max_length=100)
     
-
-    
+class ProfilePicture(models.Model):
+    photo = models.ImageField(upload_to='photos/')
     

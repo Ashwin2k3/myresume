@@ -7,9 +7,20 @@
     <!-- Include your chosen Bootswatch theme CSS from the CDN -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/4.5.2/{{ your_theme_name }}/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+    <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
     <title>Ashwin Resume</title>
     <style>
+        
+        #convertToPdf {
+        {% comment %} position: fixed; {% endcomment %}
+        top: 10px;
+        right: 10px;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
         body.night-mode {
             background-color: #000000;
             color: #fff;
@@ -49,8 +60,11 @@
     <div class="container ">
         <div class=" text-center">
             <!-- Include this in your HTML template -->
-        <button id="night-mode-toggle">Toggle Night Mode</button>
+         <!-- Convert to PDF button -->
+         <button id="convertToPdf" >Convert to PDF</button>
 
+         <!-- Night mode toggle button -->
+         <button id="night-mode-toggle">Toggle Night Mode</button>
         </div>
 
         <div class="row">
@@ -59,6 +73,7 @@
                 <!-- Personal Information Section -->
                 <div class="text-center">
                     <h1>{{ personal_info.first_name }} {{ personal_info.last_name }}</h1>
+                    {% comment %} <img src="{{ profile_picture.photo.url }}" alt="ProfilePhoto"> {% endcomment %}
                     <p>{{ personal_info.job_title }}</p>
                     <p>{{ personal_info.email }}</p>
                     <p>{{ personal_info.phone }}</p>
@@ -107,6 +122,20 @@
 
                 <!-- Contact Section -->
                 <hr>
+                <div class="courses">
+                    <h2>Courses</h2>
+                    <ul>
+                        {% for course in courses %}
+                            <li>
+                                <h4 class="text-primary">{{ course.title }} ({{ course.course_code }})</h4>
+                                <p>{{ course.description | safe }}</p>
+                                <p>{{ course.start_date }} - {{ course.end_date }}</p>
+                                <p><a class="text-success" target="_blank" href="{{ course.link }}">Link</a></p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <hr>
                 <div class="contact">
                     <h2>Contact</h2>
                     <ul>
@@ -115,6 +144,8 @@
                         <li>Address: {{ personal_info.address }}</li>
                     </ul>
                 </div>
+
+                
             </div>
 
             <div class="col-md-8">
@@ -166,19 +197,7 @@
                     </ul>
                 </div>
 
-                <div class="courses">
-                    <h2>Courses</h2>
-                    <ul>
-                        {% for course in courses %}
-                            <li>
-                                <h4 class="text-primary">{{ course.title }} ({{ course.course_code }})</h4>
-                                <p>{{ course.description | safe }}</p>
-                                <p>{{ course.start_date }} - {{ course.end_date }}</p>
-                                <p><a class="text-success" target="_blank" href="{{ course.link }}">Link</a></p>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
+                
                 
                 <!-- Achievements Section -->
                 <hr>
@@ -205,6 +224,32 @@ nightModeToggle.addEventListener('click', () => {
     body.classList.toggle('night-mode');
 });
 </script>
+
+<script>
+    document.getElementById('convertToPdf').addEventListener('click', function () {
+        // Target the container or specific element you want to convert
+        const element = document.body;
+        const excludedElements = ['#convertToPdf', '#night-mode-toggle'];
+        
+        console.log('Excluded Elements:', excludedElements);
+        // Options for pdf generation
+        const options = {
+            margin: 10,
+            filename: 'your_resume.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+            exclude: excludedElements,
+        };
+
+        // Perform the pdf generation
+        html2pdf(element, options);
+    });
+
+</script>
+
+
+
 </body>
 
 </html>
