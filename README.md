@@ -26,3 +26,6 @@ This is a Django-based resume website that allows users to add, update, and dele
 - HTML/CSS for frontend
 - Bootstrap for responsive design (optional)
 
+## overview 
+<img width="395" alt="image" src="https://github.com/Ashwin2k3/myresume/assets/111643440/a5aa110f-705f-4f38-a1cd-dfdebb08234c">
+
